@@ -3,7 +3,7 @@
 Welcome::Welcome(QWidget *parent) : BaseWidget(__FUNCTION__, parent)
 {
     QVBoxLayout *leyaut = new QVBoxLayout(this);
-    QLabel *label = new QLabel("Witamy w aplikacji do przewidywania wyników rozgrywek sportowych reprezentacji polski.",this);
+    QLabel *label = new QLabel("Welcome to the application for predicting the results of sports games of the Polish national team.",this);
     label->setWordWrap(true);
     leyaut->addWidget(label, 0, Qt::AlignHCenter);
     QPushButton *bt = new QPushButton("Start", this);

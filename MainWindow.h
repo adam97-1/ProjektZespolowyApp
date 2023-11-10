@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QtWidgets>
+#include <QtNetwork>
+#include <QJsonDocument>
 #include <iostream>
 #include "Welcome.h"
 #include "SelectDiscipline.h"
@@ -23,6 +25,13 @@ private:
     SelectDiscipline *m_selectDiscipline {nullptr};
     SelectCountry *m_selectCountry {nullptr};
     Result *m_result {nullptr};
+
+    QNetworkAccessManager m_menager;
+    QNetworkRequest m_request;
+
+    QString m_discipline;
+    QString m_country;
+    QString m_address;
 
     void onChangeWidget(QWidget *widget);
     void onSportSelected(std::string name);

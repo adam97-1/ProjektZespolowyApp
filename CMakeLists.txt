@@ -11,7 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
-
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Network)
 set(PROJECT_SOURCES
         main.cpp
         MainWindow.cpp
@@ -24,7 +24,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         Welcome.h Welcome.cpp
         SelectDiscipline.h SelectDiscipline.cpp
-        BaseWidget.h BasewWdget.cpp
+        BaseWidget.h BaseWdget.cpp
         PushButton.h PushButton.cpp
         SelectCountry.h SelectCountry.cpp
         Result.h Result.cpp
@@ -48,6 +48,7 @@ else()
 endif()
 
 target_link_libraries(ProjektZespolowyApp PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(ProjektZespolowyApp PRIVATE Qt${QT_VERSION_MAJOR}::Network)
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
@@ -73,3 +74,6 @@ install(TARGETS ProjektZespolowyApp
 if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ProjektZespolowyApp)
 endif()
+
+configure_file(${CMAKE_SOURCE_DIR}/Country.txt ${CMAKE_CURRENT_BINARY_DIR}/Country.txt COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/host.txt ${CMAKE_CURRENT_BINARY_DIR}/host.txt COPYONLY)

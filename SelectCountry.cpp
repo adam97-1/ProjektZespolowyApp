@@ -9,13 +9,13 @@ SelectCountry::SelectCountry(QWidget *parent) : BaseWidget(__FUNCTION__, parent)
 
     while (!file.atEnd())
     {
-        QByteArray line = file.readLine();
+        QByteArray line = file.readLine().removeLast();
         m_countryVect.push_back(new PushButton(QString(line.toStdString().data()), this));
     }
 
 
     QVBoxLayout *layout_main = new QVBoxLayout(this);
-    layout_main->addWidget(new QLabel("Wybierz reprezentacje", this), 0, Qt::AlignCenter);
+    layout_main->addWidget(new QLabel("Select country's representation", this), 0, Qt::AlignCenter);
 
     m_searchCountry = new QLineEdit(this);
     layout_main->addWidget(m_searchCountry);
@@ -34,7 +34,7 @@ SelectCountry::SelectCountry(QWidget *parent) : BaseWidget(__FUNCTION__, parent)
         connect(country, &PushButton::onClidkedWithText, this, &SelectCountry::onCountryClidked);
     }
 
-    QPushButton *bt_back = new QPushButton("Powrót", this);
+    QPushButton *bt_back = new QPushButton("Back", this);
     layout_main->addWidget(bt_back);
 
     connect(bt_back, &QAbstractButton::clicked, [&](){emit changeWidget(widgetMap.at("SelectDiscipline"));});
