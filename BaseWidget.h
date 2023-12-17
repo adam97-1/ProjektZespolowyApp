@@ -9,12 +9,13 @@ class BaseWidget : public QWidget
 Q_OBJECT
 
 public:
-    explicit BaseWidget(std::string name, QWidget *parent = nullptr);
+    explicit BaseWidget(QString name, QWidget *parent = nullptr);
+    QWidget* getWidget(QString name);
 signals:
     void changeWidget(QWidget *widget);
 
 protected:
-    static std::map<std::string, QWidget*> widgetMap;
+    static std::map<QString, QWidget*> widgetMap;
 };
 
 #endif // BASEWIDGET_H

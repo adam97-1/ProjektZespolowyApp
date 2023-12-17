@@ -1,9 +1,14 @@
 #include "BaseWidget.h"
 
 #include <iostream>
-std::map<std::string, QWidget*> BaseWidget::widgetMap;
+std::map<QString, QWidget*> BaseWidget::widgetMap;
 
-BaseWidget::BaseWidget(std::string name, QWidget *parent) : QWidget{parent}
+BaseWidget::BaseWidget(QString name, QWidget *parent) : QWidget{parent}
 {
     widgetMap.insert({name, this});
+}
+
+QWidget* BaseWidget::getWidget(QString name)
+{
+    return widgetMap.at(name);
 }

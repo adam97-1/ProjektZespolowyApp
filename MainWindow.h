@@ -18,6 +18,9 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    void createView();
+
+
 private:
 
     QStackedWidget *m_stackWidget {nullptr};
@@ -34,7 +37,14 @@ private:
     QString m_address;
 
     void onChangeWidget(QWidget *widget);
-    void onSportSelected(std::string name);
-    void onCountrySelected(std::string name);
+    void onSportSelected(QString name);
+    void onCountrySelected(QString name);
+    void onFinishedRequestApi(QNetworkReply *reply);
+    QString readAddressFromFile(QFile &file);
+    void loadAddressApiFromFile();
+    void createStackOfView();
+    void addViewToStack();
+    void connnectAllSignals();
+    void sendApiRequsest();
 };
 #endif // MAINWINDOW_H

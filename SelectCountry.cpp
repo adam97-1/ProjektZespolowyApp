@@ -3,52 +3,92 @@
 
 SelectCountry::SelectCountry(QWidget *parent) : BaseWidget(__FUNCTION__, parent)
 {
-    QFile file("./Country.txt");
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
-        return;
+    readAllCountryForDysciplines();
+    createAllObject();
+    createStaticObjectAndAddToLayout();
+    connectAllSignals();
+}
 
-    while (!file.atEnd())
+void SelectCountry::setSelectedSport(QString name)
+{
+    m_selectedSport = name;
+    m_searchCountry->setText("");
+    for (const auto& countries : m_mapOfCountryVect)
+        for ( auto country : countries.second)
+            country->setVisible(false);
+
+    for(auto country : m_mapOfCountryVect.at(m_selectedSport))
     {
-        QByteArray line = file.readLine().removeLast();
-        m_countryVect.push_back(new PushButton(QString(line.toStdString().data()), this));
+        country->setVisible(true);
     }
+}
 
+void SelectCountry::readAllCountryForDysciplines()
+{
+    const std::vector<QString> dysciplines {"football", "volleyball", "handball", "basketball"};
 
-    QVBoxLayout *layout_main = new QVBoxLayout(this);
-    layout_main->addWidget(new QLabel("Select country's representation", this), 0, Qt::AlignCenter);
+    for (const auto& dyscipline : dysciplines)
+    {
+        m_mapOfCountryVect.insert({dyscipline, std::vector<PushButton *>()});
+        QFile file("./Country_" + dyscipline + ".txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
 
+        while (!file.atEnd())
+        {
+            QByteArray line = file.readLine().removeLast();
+            m_mapOfCountryVect.at(dyscipline).push_back(new PushButton(QString(line.toStdString().data()), this));
+        }
+    }
+}
+
+void SelectCountry::createAllObject()
+{
+    m_mainLayout = new QVBoxLayout(this);
     m_searchCountry = new QLineEdit(this);
-    layout_main->addWidget(m_searchCountry);
 
-    QScrollArea *scrollarea = new QScrollArea(this);
-    QWidget * scrollWidget = new QWidget();
-    QVBoxLayout *layout_button = new QVBoxLayout(scrollWidget);
+    m_scrollarea = new QScrollArea(this);
+    m_scrollWidget = new QWidget(this);
+    m_layoutButtons = new QVBoxLayout(m_scrollWidget);
 
-    scrollarea->setWidgetResizable(true);
-    layout_main->addWidget(scrollarea, 1);
-    scrollarea->setWidget( scrollWidget );
+    m_backButton = new QPushButton("Back", this);
+}
 
-    for(auto country : m_countryVect)
-    {
-        layout_button->addWidget(country);
-        connect(country, &PushButton::onClidkedWithText, this, &SelectCountry::onCountryClidked);
-    }
+void SelectCountry::createStaticObjectAndAddToLayout()
+{
+    m_mainLayout->addWidget(new QLabel("Select country's representation", this), 0, Qt::AlignCenter);
 
-    QPushButton *bt_back = new QPushButton("Back", this);
-    layout_main->addWidget(bt_back);
+    m_mainLayout->addWidget(m_searchCountry);
 
-    connect(bt_back, &QAbstractButton::clicked, [&](){emit changeWidget(widgetMap.at("SelectDiscipline"));});
+    m_scrollarea->setWidgetResizable(true);
+    m_mainLayout->addWidget(m_scrollarea, 1);
+    m_scrollarea->setWidget(m_scrollWidget );
+
+    for (const auto& countries : m_mapOfCountryVect)
+        for ( auto country : countries.second)
+            m_layoutButtons->addWidget(country);
+    m_mainLayout->addWidget(m_backButton);
+
+}
+
+void SelectCountry::connectAllSignals()
+{
+    for (const auto& countries : m_mapOfCountryVect)
+        for ( auto country : countries.second)
+            connect(country, &PushButton::onClidkedWithText, this, &SelectCountry::onCountryClidked);
+    connect(m_backButton, &QAbstractButton::clicked, m_backButton, [&](){emit changeWidget(widgetMap.at("SelectDiscipline"));});
     connect(m_searchCountry, &QLineEdit::textChanged, this, &SelectCountry::onSearchCountryTextChanged);
 }
 
-void SelectCountry::onCountryClidked(std::string name)
+
+void SelectCountry::onCountryClidked(QString name)
 {
     emit countryChosed(name);
 }
 
 void SelectCountry::onSearchCountryTextChanged(const QString &text)
 {
-    for(auto country : m_countryVect)
+    for(auto country : m_mapOfCountryVect.at(m_selectedSport))
     {
         if(!country->text().toLower().contains(text.toLower()))
             country->hide();

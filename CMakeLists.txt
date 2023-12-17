@@ -28,6 +28,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         PushButton.h PushButton.cpp
         SelectCountry.h SelectCountry.cpp
         Result.h Result.cpp
+
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET ProjektZespolowyApp APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -75,5 +76,8 @@ if(QT_VERSION_MAJOR EQUAL 6)
     qt_finalize_executable(ProjektZespolowyApp)
 endif()
 
-configure_file(${CMAKE_SOURCE_DIR}/Country.txt ${CMAKE_CURRENT_BINARY_DIR}/Country.txt COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Country_football.txt ${CMAKE_CURRENT_BINARY_DIR}/Country_football.txt COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Country_volleyball.txt ${CMAKE_CURRENT_BINARY_DIR}/Country_volleyball.txt COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Country_handball.txt ${CMAKE_CURRENT_BINARY_DIR}/Country_handball.txt COPYONLY)
+configure_file(${CMAKE_SOURCE_DIR}/Country_basketball.txt ${CMAKE_CURRENT_BINARY_DIR}/Country_basketball.txt COPYONLY)
 configure_file(${CMAKE_SOURCE_DIR}/host.txt ${CMAKE_CURRENT_BINARY_DIR}/host.txt COPYONLY)

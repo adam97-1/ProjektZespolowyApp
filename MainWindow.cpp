@@ -1,37 +1,67 @@
 #include "MainWindow.h"
 #include <QDebug>
 
-
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 {
 
-    resize(600,600);
+    loadAddressApiFromFile();
 
+    createStackOfView();
+    createView();
+    addViewToStack();
+
+    connnectAllSignals();
+}
+
+MainWindow::~MainWindow()
+{
+}
+
+
+void MainWindow::loadAddressApiFromFile()
+{
     QFile file("./host.txt");
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QByteArray line = file.readAll().removeLast();
-        m_address = QString(line.toStdString().data());
+        m_address = readAddressFromFile(file);
     }
     else
     {
         m_address = "localhost:5000";
     }
+}
+
+QString MainWindow::readAddressFromFile(QFile &file)
+{
+    QByteArray line = file.readAll().removeLast();
+    return QString(line.toStdString().data());
+}
+
+void MainWindow::createView()
+{
     m_welcome = new Welcome(this);
     m_selectDiscipline = new SelectDiscipline(this);
     m_selectCountry = new SelectCountry(this);
     m_result = new Result(this);
+}
 
-
+void MainWindow::createStackOfView()
+{
     m_stackWidget = new QStackedWidget(this);
     QVBoxLayout *layaut = new QVBoxLayout(this);
     layaut->addWidget(m_stackWidget);
+}
 
+void MainWindow::addViewToStack()
+{
     m_stackWidget->addWidget(m_welcome);
     m_stackWidget->addWidget(m_selectDiscipline);
     m_stackWidget->addWidget(m_selectCountry);
     m_stackWidget->addWidget(m_result);
+}
 
+void MainWindow::connnectAllSignals()
+{
     connect(m_welcome, &BaseWidget::changeWidget, this, &MainWindow::onChangeWidget);
 
     connect(m_selectDiscipline, &BaseWidget::changeWidget, this, &MainWindow::onChangeWidget);
@@ -42,32 +72,7 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent)
 
     connect(m_result, &Result::changeWidget, this, &MainWindow::onChangeWidget);
 
-    QObject::connect(&m_menager, &QNetworkAccessManager::finished,
-                     this, [=](QNetworkReply *reply) {
-                         if (reply->error()) {
-                             m_result->setTextResult("Error of connection");
-                             return;
-                         }
-
-                         QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-                         QJsonObject object = document.object();
-                         QJsonValue discipline = object.value(QString("discipline"));
-                         QJsonValue opponent = object.value(QString("opponent"));
-                         QJsonValue result = object.value(QString("result"));
-
-                         m_result->setTextResult(QString("Soprt: %1\n"
-                                                         "Opponent: %2\n"
-                                                         "Result: %3").arg(discipline.toString()).arg(opponent.toString()).arg(result.toString()));
-
-                     }
-                     );
-
-
-
-}
-
-MainWindow::~MainWindow()
-{
+    connect(&m_menager, &QNetworkAccessManager::finished,this, &MainWindow::onFinishedRequestApi);
 }
 
 void MainWindow::onChangeWidget(QWidget *widget)
@@ -75,21 +80,49 @@ void MainWindow::onChangeWidget(QWidget *widget)
     m_stackWidget->setCurrentWidget(widget);
 }
 
-void MainWindow::onSportSelected(std::string name)
+void MainWindow::onSportSelected(QString name)
 {
-    m_discipline = QString(name.data());
+    m_discipline = name;
+    m_selectCountry->setSelectedSport(name);
     m_stackWidget->setCurrentWidget(m_selectCountry);
 }
 
-void MainWindow::onCountrySelected(std::string name)
+
+void MainWindow::onCountrySelected(QString name)
 {
-    m_country = QString(name.data());
+    m_country = name;
 
+    sendApiRequsest();
 
-    m_request.setUrl(QUrl(QString("http://%1/discipline/%2/opponent/%3").arg(m_address).arg(m_discipline).arg(m_country)));
-    m_menager.get(m_request);
     m_result->setTextResult("Loading...");
     m_stackWidget->setCurrentWidget(m_result);
+}
+
+void MainWindow::sendApiRequsest()
+{
+    m_request.setUrl(QUrl(QString("http://%1/discipline/%2/opponent/%3").arg(m_address, m_discipline, m_country)));
+    m_menager.get(m_request);
+}
+
+void MainWindow::onFinishedRequestApi(QNetworkReply *reply)
+{
+
+    if (reply->error())
+    {
+        m_result->setTextResult("Error of connection");
+        return;
+    }
+
+    QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
+    QJsonObject object = document.object();
+    QJsonValue discipline = object.value(QString("discipline"));
+    QJsonValue opponent = object.value(QString("opponent"));
+    QJsonValue result = object.value(QString("result"));
+
+    m_result->setTextResult(QString("Soprt: %1\n"
+                                    "Opponent: %2\n"
+                                    "Result: %3").arg(discipline.toString(), opponent.toString(), result.toString()));
+
 }
 
 

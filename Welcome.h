@@ -11,7 +11,13 @@ public:
     explicit Welcome( QWidget *parent = nullptr);
 
 private:
-    void onBackClidked();
+    QVBoxLayout *m_Mainleyaut {nullptr};
+    QPushButton *m_startButton {nullptr};
+
+    void onStartClidked();
+    void createAllObject();
+    void connectAllSignals();
+    void createStaticObjectAndAddToLayout();
 };
 
 #endif // WELCOME_H

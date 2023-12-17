@@ -13,7 +13,7 @@ public:
     PushButton(const QIcon& icon, const QString &text, QWidget *parent = nullptr);
 
 signals:
-    void onClidkedWithText(std::string name);
+    void onClidkedWithText(QString name);
 
 };
 

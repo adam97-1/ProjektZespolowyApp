@@ -14,13 +14,20 @@ class SelectDiscipline : public BaseWidget
 public:
     explicit SelectDiscipline(QWidget *parent = nullptr);
 
+    void loadDisciplines();
+
 signals:
-    void sportChosed(std::string name);
+    void sportChosed(QString name);
 
 private:
     std::vector<PushButton *> m_sportVect;
-    void onSoprtClidked(std::string name);
-
+    QVBoxLayout *m_mainLayout {nullptr};
+    QPushButton *m_backButton {nullptr};
+    void onSoprtClidked(QString name);
+    void onClickedBack();
+    void createAllObject();
+    void createStaticObjectAndAddToLayout();
+    void connectAllSignals();
 };
 
 #endif // SELECTDISCIPLINE_H
