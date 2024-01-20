@@ -3,7 +3,7 @@
 
 #include <QtWidgets>
 #include <vector>
-#include<map>
+#include <map>
 #include "BaseWidget.h"
 #include "PushButton.h"
 

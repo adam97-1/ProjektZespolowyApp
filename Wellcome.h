@@ -1,14 +1,14 @@
-#ifndef WELCOME_H
-#define WELCOME_H
+#ifndef WELLCOME_H
+#define WELLCOME_H
 
 #include <QtWidgets>
 #include "BaseWidget.h"
 
-class Welcome : public BaseWidget
+class Wellcome : public BaseWidget
 {
     Q_OBJECT
 public:
-    explicit Welcome( QWidget *parent = nullptr);
+    explicit Wellcome( QWidget *parent = nullptr);
 
 private:
     QVBoxLayout *m_Mainleyaut {nullptr};
@@ -20,4 +20,4 @@ private:
     void createStaticObjectAndAddToLayout();
 };
 
-#endif // WELCOME_H
+#endif // WELLCOME_H

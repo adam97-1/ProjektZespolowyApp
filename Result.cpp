@@ -39,5 +39,5 @@ void Result::connectAllSignals()
 
 void Result::onBackClidked()
 {
-    emit changeWidget(widgetMap.at("SelectCountry"));
+    emit changeWidget(getWidget("SelectCountry"));
 }

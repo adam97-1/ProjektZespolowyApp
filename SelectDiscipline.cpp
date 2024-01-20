@@ -1,7 +1,5 @@
 #include "SelectDiscipline.h"
 
-
-
 SelectDiscipline::SelectDiscipline(QWidget *parent) : BaseWidget{__FUNCTION__, parent}
 {
 
@@ -51,5 +49,5 @@ void SelectDiscipline::onSoprtClidked(QString name)
 
 void SelectDiscipline::onClickedBack()
 {
-    emit changeWidget(getWidget("Welcome"));
+    emit changeWidget(getWidget("Wellcome"));
 }

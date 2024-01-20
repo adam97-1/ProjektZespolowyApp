@@ -5,7 +5,7 @@
 #include <QtNetwork>
 #include <QJsonDocument>
 #include <iostream>
-#include "Welcome.h"
+#include "Wellcome.h"
 #include "SelectDiscipline.h"
 #include "SelectCountry.h"
 #include "Result.h"
@@ -24,7 +24,7 @@ public:
 private:
 
     QStackedWidget *m_stackWidget {nullptr};
-    Welcome *m_welcome {nullptr};
+    Wellcome *m_wellcome {nullptr};
     SelectDiscipline *m_selectDiscipline {nullptr};
     SelectCountry *m_selectCountry {nullptr};
     Result *m_result {nullptr};

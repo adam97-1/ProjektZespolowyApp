@@ -39,7 +39,7 @@ QString MainWindow::readAddressFromFile(QFile &file)
 
 void MainWindow::createView()
 {
-    m_welcome = new Welcome(this);
+    m_wellcome = new Wellcome(this);
     m_selectDiscipline = new SelectDiscipline(this);
     m_selectCountry = new SelectCountry(this);
     m_result = new Result(this);
@@ -54,7 +54,7 @@ void MainWindow::createStackOfView()
 
 void MainWindow::addViewToStack()
 {
-    m_stackWidget->addWidget(m_welcome);
+    m_stackWidget->addWidget(m_wellcome);
     m_stackWidget->addWidget(m_selectDiscipline);
     m_stackWidget->addWidget(m_selectCountry);
     m_stackWidget->addWidget(m_result);
@@ -62,7 +62,7 @@ void MainWindow::addViewToStack()
 
 void MainWindow::connnectAllSignals()
 {
-    connect(m_welcome, &BaseWidget::changeWidget, this, &MainWindow::onChangeWidget);
+    connect(m_wellcome, &BaseWidget::changeWidget, this, &MainWindow::onChangeWidget);
 
     connect(m_selectDiscipline, &BaseWidget::changeWidget, this, &MainWindow::onChangeWidget);
     connect(m_selectDiscipline, &SelectDiscipline::sportChosed, this, &MainWindow::onSportSelected);

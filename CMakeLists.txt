@@ -22,7 +22,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(ProjektZespolowyApp
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
-        Welcome.h Welcome.cpp
+        Wellcome.h Wellcome.cpp
         SelectDiscipline.h SelectDiscipline.cpp
         BaseWidget.h BaseWdget.cpp
         PushButton.h PushButton.cpp

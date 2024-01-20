@@ -1,4 +1,113 @@
-Tunisia
-Algeria
-Scotland
+Denmark
+Spain
+France
+Sweden
+Norway
+Germany
 Egypt
+Croatia
+Slovenia
+Iceland
+Serbia
+Hungary
+Portugal
+Russia
+Nederlands
+Brazil
+Qtar
+Balerus
+Czech Republic
+Argentina
+Tunisia
+Austria
+Bahrain
+North Macedonia
+Chile
+Switzerland
+Montenegro
+Romania
+Japan
+Bosnia and Herzegovina
+Iran
+Korea Republic
+Greece
+USA
+Cuba
+Ukraine
+Cape Verde Islands
+Slovakia
+United Arab Emirates
+Saudi Arabia
+Lithuania
+Italy
+Algeria
+Dominika
+Guinea
+Greenland
+Israel
+Morocco
+Kuwait
+Angola
+Iraq
+Georgia
+Latvia
+Turkey
+Finland
+Faroe Islands
+Puerto Rico
+Moldova
+Congo DR
+Congo
+Bulgaria
+Hong Kong
+Estonia
+Great Britain
+Senegal
+Urugway
+Vietnam
+Jordan
+Mexico
+Belgium
+England
+Cyprus
+Syria
+China
+Oman
+Kosovo
+Costa Rica
+Dominican Republic
+Panama
+Cameroon
+Venezuela
+Libya
+Luxembourg
+Zambia
+Nigeria
+Singapore
+Gabon
+Scotland
+Colombia
+Kazahstan
+Ivory Coast
+India
+Nicaragua
+Uzbekistan
+Australia
+Yugoslawia
+Peru
+Paraguay
+Albania
+Lebanon
+Canada
+Guatemala
+Bolivia
+El Salvador
+Kenya
+Honduras
+Cook Island
+Azerbaijan
+Ireland
+Armenia
+New Zeland
+Malta
+Wales

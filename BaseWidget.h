@@ -6,7 +6,7 @@
 
 class BaseWidget : public QWidget
 {
-Q_OBJECT
+    Q_OBJECT
 
 public:
     explicit BaseWidget(QString name, QWidget *parent = nullptr);

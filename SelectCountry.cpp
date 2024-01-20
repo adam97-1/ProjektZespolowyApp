@@ -76,7 +76,7 @@ void SelectCountry::connectAllSignals()
     for (const auto& countries : m_mapOfCountryVect)
         for ( auto country : countries.second)
             connect(country, &PushButton::onClidkedWithText, this, &SelectCountry::onCountryClidked);
-    connect(m_backButton, &QAbstractButton::clicked, m_backButton, [&](){emit changeWidget(widgetMap.at("SelectDiscipline"));});
+    connect(m_backButton, &QAbstractButton::clicked, m_backButton, [&](){emit changeWidget(getWidget("SelectDiscipline"));});
     connect(m_searchCountry, &QLineEdit::textChanged, this, &SelectCountry::onSearchCountryTextChanged);
 }
 

@@ -1,6 +1,6 @@
 #include "BaseWidget.h"
-
 #include <iostream>
+
 std::map<QString, QWidget*> BaseWidget::widgetMap;
 
 BaseWidget::BaseWidget(QString name, QWidget *parent) : QWidget{parent}
